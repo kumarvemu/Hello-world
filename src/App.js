@@ -1,10 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-
+import ExampleComponent, { AnotherComponent } from './Components/ExampleComponent';
+import Greeting from './Components/Greeting';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <ExampleComponent/>
+      <AnotherComponent/>
+      <Greeting name ="Matt" age="23"/>
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -17,7 +21,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
     </div>
   );
 }
