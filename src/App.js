@@ -1,27 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
-import ExampleComponent, { AnotherComponent } from './Components/ExampleComponent';
-import Greeting from './Components/Greeting';
+import Search from './Components/Payments-UI/Search';
+import Transactions from './Components/Payments-UI/Transactions';
+import PageHeader from './Components/Payments-UI/PageHeader';
+import FindATransaction from './Components/Payments-UI/FindATransaction';
+import NewTransaction from './Components/Payments-UI/NewTransaction';
+import { useState } from 'react';
+
 function App() {
+
+  const [selectedPage, setSelectedPage] = useState("find");
+
   return (
     <div className="App">
-      <ExampleComponent/>
-      <AnotherComponent/>
-      <Greeting name ="Matt" age="23"/>
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
+      <PageHeader setSelectedPage={setSelectedPage} />
+      {selectedPage === "find" && <FindATransaction />}
+      {selectedPage === "new" && <NewTransaction />}
     </div>
   );
 }
