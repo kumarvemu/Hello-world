@@ -3,7 +3,7 @@ import { getAllPayments, getAllPaymentsAxiosVersion, getAllPaymentsRestVersion }
 import TransactionRow from "./TransactionRow";
 import "./Transactions.css";
 
-const Transactions = () => {
+const Transactions = (props) => {
 
     const [transactions, setTransactions] = useState([]);
     
@@ -44,8 +44,16 @@ const Transactions = () => {
     const countryOptions = uniqueCountries.map
      ( country => <option key={country} value={country}>{country}</option> );
     
-     debugger;
-    const displayTransactions = transactions.map ( trans => 
+     
+    // const displayTransactions = transactions.map ( trans => 
+    //     (trans.country === selectedCountry) && 
+    //     <TransactionRow key={trans.id} id={trans.id} date ={trans.date} country={trans.country} 
+    //         currency={trans.currency} amount={trans.amount} orderId={trans.orderId} />
+    //   );
+
+      const displayTransactions = transactions
+        .filter(trans => props.searchTerm=== "" || props.searchTerm === trans.orderId)
+        .map ( trans => 
         (trans.country === selectedCountry) && 
         <TransactionRow key={trans.id} id={trans.id} date ={trans.date} country={trans.country} 
             currency={trans.currency} amount={trans.amount} orderId={trans.orderId} />
