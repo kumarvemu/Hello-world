@@ -33,6 +33,12 @@ export const getAllPaymentsAxiosVersion = () => {
         
     return paymentsPromise;
 }
+export const addNewPayment = (payment) =>  {
+    return axios({ url : "http://localhost:8080/api/payment/", 
+    method : "POST", 
+    headers : { 'Accept': 'application/json', 'Content-Type' : 'application/json' } , 
+    data : payment } );
+}
 
 
 export const getAllPaymentsRestExample = () => {

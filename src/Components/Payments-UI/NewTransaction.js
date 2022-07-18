@@ -1,7 +1,7 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
+import { addNewPayment } from "./Datafunctions";
 
 const NewTransaction = () => {
-
 
     const emptyTransaction = { orderId: "", date : new Date().toISOString().slice(0,10) , country: "",
         amount : "", currency: "", taxCode : "", taxRate : "", type : ""}
@@ -19,10 +19,29 @@ const NewTransaction = () => {
     
     const {orderId, date, country, amount, currency, taxCode, taxRate, type} = newTransaction;
 
-const submitForm = (e) => {
+    const [message, setMessage] = useState("")
+    const [saving, setSaving] = useState(false);
+
+    const submitForm = (e) => {
     e.preventDefault();
-    console.log(newTransaction);
-}
+    setSaving(true);
+    setMessage("please wait - saving")
+    const response = addNewPayment(newTransaction);
+    response.then ( result => {
+        if (result.status === 200) {
+            setMessage("Payment added with id " + result.data.id)
+        }
+        else {
+            setMessage ("something went wrong ", result.statusText)
+        }
+        setSaving(false);
+    })
+        .catch (error => {
+            setMessage("something went wrong ", error)
+            setSaving(false);
+        })
+        
+    }
 
     return (
     <form className="addTransactionsForm" onSubmit={submitForm} >
@@ -51,7 +70,8 @@ const submitForm = (e) => {
     <label htmlFor="type">Type</label>
     <input type="text"  id="type" onChange={handleChange} value={type}  />
     <br/>
-    <button type="submit">Save</button>
+    <button disabled={saving} type="submit">Save</button>
+    <p>{message}</p>
 </form>)
 }
 
