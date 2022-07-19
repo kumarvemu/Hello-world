@@ -7,10 +7,14 @@ import NewTransaction from './Components/Payments-UI/NewTransaction';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PageNotFound from './Components/Payments-UI/PageNotFound';
+import { Provider } from 'react-redux';
+import paymentsStore from './Components/Payments-UI/store';
+
 
 function App() {
 
   return (
+    <Provider store={paymentsStore}>
     <BrowserRouter>
     <div className="App">
       
@@ -28,6 +32,7 @@ function App() {
         
       </div>
       </BrowserRouter>
+      </Provider>
   );
 }
 
