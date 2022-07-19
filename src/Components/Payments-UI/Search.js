@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 import './Search.css';
 
 const Search = (props) => {
@@ -7,9 +9,18 @@ const Search = (props) => {
     const [valid, setValid] = useState(false);
     const [touched, setTouched] = useState(false);
 
+    const navigate = useNavigate();
+
+    const [searchParams, setSearchParams] = useSearchParams();
+
     const doSearch = (event) => {
         event.preventDefault();
         props.setSearchTerm(searchTerm.trim());
+        if (searchParams.get("country") != null) {
+            navigate("/find/" + searchTerm.trim() + "?country=" + searchParams.get("country"));    
+        } else {    
+            navigate("/find/" + searchTerm.trim());
+        }
     }
     
     const handleChange = (event) => {

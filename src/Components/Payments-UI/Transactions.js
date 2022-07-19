@@ -2,6 +2,8 @@ import { Fragment, useState, useEffect } from 'react';
 import { getAllPayments, getAllPaymentsAxiosVersion, getAllPaymentsRestVersion } from "./Datafunctions";
 import TransactionRow from "./TransactionRow";
 import "./Transactions.css";
+import { useNavigate } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 
 const Transactions = (props) => {
 
@@ -39,7 +41,11 @@ const Transactions = (props) => {
 
     const [selectedCountry, setSelectedCountry] = useState("none");
 
-    
+    const [searchParams, setSearchParams] = useSearchParams();
+    const targetCountry = searchParams.get("country");
+    if (targetCountry != null && targetCountry !== selectedCountry) {
+        setSelectedCountry(targetCountry);
+    }
 
     const countryOptions = uniqueCountries.map
      ( country => <option key={country} value={country}>{country}</option> );
@@ -59,9 +65,13 @@ const Transactions = (props) => {
             currency={trans.currency} amount={trans.amount} orderId={trans.orderId} />
       );
 
+      const navigate = useNavigate();
+
     const changeCountry = (event) => {
         const selectedCountryIndex =event.target.options.selectedIndex;
         setSelectedCountry(uniqueCountries[selectedCountryIndex-1]);
+        setSearchParams({country : uniqueCountries[selectedCountryIndex-1]});
+        //navigate("/find?country=" + uniqueCountries[selectedCountryIndex-1]);
     }
 
     return <Fragment>
