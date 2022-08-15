@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import PageNotFound from './Components/Payments-UI/PageNotFound';
 import { Provider } from 'react-redux';
 import paymentsStore from './Components/Payments-UI/store';
+import ViewTransaction from './Components/Payments-UI/ViewTransaction';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         
           <Route path="/find" element = {<FindATransaction />} />
           <Route path="/find/:orderId" element = {<FindATransaction />} />
+          <Route path="/view/:id" element = {<ViewTransaction />} />
           <Route path="/find" element = {<FindATransaction />} />
           <Route path="/new" element={<NewTransaction />} />
           <Route path="/" element={<h1>Welcome to the application</h1>} />

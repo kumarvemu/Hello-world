@@ -40,6 +40,15 @@ export const addNewPayment = (payment) =>  {
     data : payment } );
 }
 
+export const getPayment = (id) => {
+    return axios(
+        {url : `http://localhost:8080/api/payment/${id}`,
+        method: "GET",
+        headers : { 'Accept': 'application/json'}
+        } );
+}
+
+
 
 export const getAllPaymentsRestExample = () => {
     //GET  http://localhost:8080/api/payment
